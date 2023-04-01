@@ -8,7 +8,6 @@ import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,7 +35,7 @@ public class UsuarioController {
     public void registrarUsuario(@RequestBody Usuario usuario) {
 
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        String hash = argon2.hash(1, 1024, 1, usuario.getPassword());
+        String hash = argon2.hash(1, 1024, 1, usuario.getPassword().toCharArray());
         usuario.setPassword(hash);
 
         usuarioDao.registrar(usuario);
